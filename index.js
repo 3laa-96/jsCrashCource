@@ -24,16 +24,13 @@ function game(myChoice) {
   let randomNum = Math.random();
 
   // Randomizing computerChoice
-  if (randomNum >= 0 && randomNum < 1 / 3) {
-    computerChoice = "rock";
-    computerMove.innerText = "Computer choose : rock";
-  } else if (randomNum >= 1 / 3 && randomNum < 2 / 3) {
-    computerChoice = "paper";
-    computerMove.innerText = "Computer choose : paper";
-  } else {
-    computerChoice = "scissors";
-    computerMove.innerText = "Computer choose : scissors";
-  }
+  computerChoice =
+    randomNum >= 0 && randomNum < 1 / 3
+      ? "rock"
+      : randomNum >= 1 / 3 && randomNum < 2 / 3
+      ? "paper"
+      : "scissors";
+  computerMove.innerText = `Computer choose : ${computerChoice}`;
 
   // Comparing computerChoice with myChoice
   if (myChoice === computerChoice) {
