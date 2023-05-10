@@ -33,30 +33,56 @@ function game(myChoice) {
   computerMove.innerText = `Computer choose : ${computerChoice}`;
 
   // Comparing computerChoice with myChoice
-  if (myChoice === computerChoice) {
-    matchResult = "tie";
-  } else if (myChoice === "rock" && computerChoice === "scissors") {
-    matchResult = "player won";
-    playerWins++;
-  } else if (myChoice === "rock" && computerChoice === "paper") {
-    matchResult = "computer won";
-    computerWins++;
-  } else if (myChoice === "paper" && computerChoice === "scissors") {
-    matchResult = "computer won";
-    computerWins++;
-  } else if (myChoice === "paper" && computerChoice === "rock") {
-    matchResult = "player won";
-    matchResult = "computer won";
-    playerWins++;
-  } else if (myChoice === "scissors" && computerChoice === "paper") {
-    matchResult = "player won";
-    playerWins++;
-  } else {
-    matchResult = "computer won";
-    computerWins++;
-  }
+  myChoice === computerChoice
+    ? (matchResult = "tie")
+    : myChoice === "rock" && computerChoice === "scissors"
+    ? ((matchResult = "player won"), playerWins++)
+    : myChoice === "rock" && computerChoice === "paper"
+    ? ((matchResult = "computer won"), computerWins++)
+    : myChoice === "paper" && computerChoice === "scissors"
+    ? ((matchResult = "computer won"), computerWins++)
+    : myChoice === "paper" && computerChoice === "rock"
+    ? ((matchResult = "player won"), playerWins++)
+    : myChoice === "scissors" && computerChoice === "paper"
+    ? ((matchResult = "player won"), playerWins++)
+    : (matchResult = "computer won");
+
+  // if (myChoice === computerChoice) {
+  //   matchResult = "tie";
+  // } else if (myChoice === "rock" && computerChoice === "scissors") {
+  //   matchResult = "player won";
+  //   playerWins++;
+  // } else if (myChoice === "rock" && computerChoice === "paper") {
+  //   matchResult = "computer won";
+  //   computerWins++;
+  // } else if (myChoice === "paper" && computerChoice === "scissors") {
+  //   matchResult = "computer won";
+  //   computerWins++;
+  // } else if (myChoice === "paper" && computerChoice === "rock") {
+  //   matchResult = "player won";
+  //   matchResult = "computer won";
+  //   playerWins++;
+  // } else if (myChoice === "scissors" && computerChoice === "paper") {
+  //   matchResult = "player won";
+  //   playerWins++;
+  // } else {
+  //   matchResult = "computer won";
+  //   computerWins++;
+  // }
+
   // announcing results
   results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${computerWins} ].`;
 }
 
 // 3:25:46
+// testing different functions
+
+function test(number) {
+  number > 0 ? console.log(true) & console.log("yes") : console.log(false);
+}
+const isHoliday = true;
+function checkAge(age) {
+  (age <= 6 || age >= 65) && !isHoliday
+    ? console.log("discount available")
+    : console.log("discount not available");
+}
