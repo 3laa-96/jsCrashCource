@@ -5,56 +5,54 @@ const scissors = document.getElementById("scissors");
 const computerMove = document.getElementById("computerMove");
 const results = document.getElementById("results");
 let matchResult = "";
-let choice = "";
+let compMoveDisplayed = "";
 let computerWins = "0";
 let playerWins = "0";
 
+rock.addEventListener("click", function () {
+  playGame("rock");
+  console.log("rock");
+});
+paper.addEventListener("click", function () {
+  playGame("paper");
+});
+scissors.addEventListener("click", function () {
+  playGame("scissors");
+});
+
 // Randomizing computer choice
 function computerChoice() {
+  let cpuMove = "";
   const randomNum = Math.random();
-  choice =
+  cpuMove =
     randomNum >= 0 && randomNum < 1 / 3
       ? "rock"
       : randomNum >= 1 / 3 && randomNum < 2 / 3
       ? "paper"
       : "scissors";
+  return cpuMove;
 }
-
-// Calling functions by buttons
-rock.addEventListener("click", function () {
+// main function for playing the game
+function playGame(playerMove) {
   computerChoice();
-  choice === "paper"
-    ? ((matchResult = "computer won"), computerWins++)
-    : choice === "scissors"
-    ? ((matchResult = "player won"), playerWins++)
-    : (matchResult = "tie");
-  displayResults();
-});
+  const cpuMove = computerChoice();
+  matchResult =
+    playerMove === cpuMove
+      ? "tie"
+      : playerMove === "rock"
+      ? cpuMove === "paper"
+        ? (computerWins++, "computer won")
+        : (playerWins++, "player won")
+      : playerMove === "paper"
+      ? cpuMove === "scissors"
+        ? (computerWins++, "computer won")
+        : (playerWins++, "player won")
+      : cpuMove === "rock"
+      ? (computerWins++, "computer won")
+      : (playerWins++, "player won");
 
-paper.addEventListener("click", function () {
-  computerChoice();
-  choice === "scissors"
-    ? ((matchResult = "computer won"), computerWins++)
-    : choice === "rock"
-    ? ((matchResult = "player won"), playerWins++)
-    : (matchResult = "tie");
-  displayResults();
-});
-
-scissors.addEventListener("click", function () {
-  computerChoice();
-  choice === "rock"
-    ? ((matchResult = "computer won"), computerWins++)
-    : choice === "paper"
-    ? ((matchResult = "player won"), playerWins++)
-    : (matchResult = "tie");
-  displayResults();
-});
-
-// DIsplaying the result
-function displayResults() {
-  computerMove.innerText = `Computer choose : ${choice}`;
+  computerMove.innerText = `Computer choose : ${cpuMove}`;
   results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${computerWins} ].`;
 }
 
-// 3:58:41
+// // 4:30:21
