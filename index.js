@@ -5,13 +5,11 @@ const scissors = document.getElementById("scissors");
 const computerMove = document.getElementById("computerMove");
 const results = document.getElementById("results");
 let matchResult = "";
-let compMoveDisplayed = "";
 let computerWins = "0";
 let playerWins = "0";
 
 rock.addEventListener("click", function () {
   playGame("rock");
-  console.log("rock");
 });
 paper.addEventListener("click", function () {
   playGame("paper");
@@ -42,14 +40,14 @@ function playGame(playerMove) {
       : playerMove === "rock"
       ? cpuMove === "paper"
         ? (computerWins++, "computer won")
-        : (playerWins++, "player won")
+        : (playerWins++, "player won") //computerMove==="scissors"
       : playerMove === "paper"
       ? cpuMove === "scissors"
         ? (computerWins++, "computer won")
-        : (playerWins++, "player won")
+        : (playerWins++, "player won") //computerMove==="rock"
       : cpuMove === "rock"
-      ? (computerWins++, "computer won")
-      : (playerWins++, "player won");
+      ? (computerWins++, "computer won") //playerMove==="scissors"
+      : (playerWins++, "player won"); //computerMove==="paper"
 
   computerMove.innerText = `Computer choose : ${cpuMove}`;
   results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${computerWins} ].`;
