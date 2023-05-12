@@ -2,53 +2,60 @@
 const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
-const computerMove = document.getElementById("computerMove");
+const Move = document.getElementById("Move");
 const results = document.getElementById("results");
-let matchResult = "";
-let cpuMove = "";
-let cpuWins = 0;
-let playerWins = 0;
+let matchResult = {
+  cpuMove: "",
+  playerMove: "",
+  cpuWins: "0",
+  playerWins: "0",
+  ties: "0",
+  result: "",
+};
 
 rock.addEventListener("click", function () {
-  playGame("rock");
+  matchResult.playerMove = "Rock";
+  playGame(matchResult.playerMove);
 });
 paper.addEventListener("click", function () {
-  playGame("paper");
+  matchResult.playerMove = "Paper";
+  playGame(matchResult.playerMove);
 });
 scissors.addEventListener("click", function () {
-  playGame("scissors");
+  matchResult.playerMove = "Scissors";
+  playGame(matchResult.playerMove);
 });
 
 // Randomizing computer choice
 function computerChoice() {
   const randomNum = Math.random();
-  cpuMove =
+  matchResult.cpuMove =
     randomNum >= 0 && randomNum < 1 / 3
-      ? "rock"
+      ? "Rock"
       : randomNum >= 1 / 3 && randomNum < 2 / 3
-      ? "paper"
-      : "scissors";
-  return cpuMove;
+      ? "Paper"
+      : "Scissors";
+  return matchResult.cpuMove;
 }
 // main function for playing the game
 function playGame(playerMove) {
   computerChoice();
   const cpuMove = computerChoice();
-  matchResult =
-    playerMove === cpuMove
-      ? "tie"
-      : playerMove === "rock"
-      ? cpuMove === "paper"
-        ? (cpuWins++, "computer won")
-        : (playerWins++, "player won")
-      : playerMove === "paper"
-      ? cpuMove === "rock"
-        ? (playerWins++, "player won")
-        : (cpuWins++, "computer won")
-      : cpuMove === "paper"
-      ? (playerWins++, "player won")
-      : (cpuWins++, "computer won");
+  // matchResult =
+  matchResult.playerMove === cpuMove
+    ? (matchResult.ties++, (matchResult.result = "tie"))
+    : matchResult.playerMove === "Rock"
+    ? cpuMove === "Paper"
+      ? (matchResult.cpuWins++, (matchResult.result = "computer won"))
+      : (matchResult.playerWins++, (matchResult.result = "player won"))
+    : matchResult.playerMove === "Paper"
+    ? cpuMove === "Rock"
+      ? (matchResult.playerWins++, (matchResult.result = "player won"))
+      : (matchResult.cpuWins++, (matchResult.result = "computer won"))
+    : cpuMove === "Paper"
+    ? (matchResult.playerWins++, (matchResult.result = "player won"))
+    : (matchResult.cpuWins++, (matchResult.result = "computer won"));
 
-  computerMove.innerText = `Computer choose : ${cpuMove}`;
-  results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${cpuWins} ].`;
+  Move.innerText = `Moves : Computer choose ${matchResult.cpuMove} while player choose ${matchResult.playerMove}`;
+  results.innerText = `Results : ${matchResult.result} , player total wins are [ ${matchResult.playerWins} ] while computer total wins are [ ${matchResult.cpuWins} ].`;
 }
