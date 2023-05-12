@@ -5,8 +5,9 @@ const scissors = document.getElementById("scissors");
 const computerMove = document.getElementById("computerMove");
 const results = document.getElementById("results");
 let matchResult = "";
-let computerWins = "0";
-let playerWins = "0";
+let cpuMove = "";
+let cpuWins = 0;
+let playerWins = 0;
 
 rock.addEventListener("click", function () {
   playGame("rock");
@@ -20,7 +21,6 @@ scissors.addEventListener("click", function () {
 
 // Randomizing computer choice
 function computerChoice() {
-  let cpuMove = "";
   const randomNum = Math.random();
   cpuMove =
     randomNum >= 0 && randomNum < 1 / 3
@@ -39,18 +39,16 @@ function playGame(playerMove) {
       ? "tie"
       : playerMove === "rock"
       ? cpuMove === "paper"
-        ? (computerWins++, "computer won")
-        : (playerWins++, "player won") //computerMove==="scissors"
+        ? (cpuWins++, "computer won")
+        : (playerWins++, "player won")
       : playerMove === "paper"
-      ? cpuMove === "scissors"
-        ? (computerWins++, "computer won")
-        : (playerWins++, "player won") //computerMove==="rock"
-      : cpuMove === "rock"
-      ? (computerWins++, "computer won") //playerMove==="scissors"
-      : (playerWins++, "player won"); //computerMove==="paper"
+      ? cpuMove === "rock"
+        ? (playerWins++, "player won")
+        : (cpuWins++, "computer won")
+      : cpuMove === "paper"
+      ? (playerWins++, "player won")
+      : (cpuWins++, "computer won");
 
   computerMove.innerText = `Computer choose : ${cpuMove}`;
-  results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${computerWins} ].`;
+  results.innerText = `Results: ${matchResult}, player total wins are [ ${playerWins} ], while computer total wins are [ ${cpuWins} ].`;
 }
-
-// // 4:30:21
