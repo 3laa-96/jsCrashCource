@@ -5,34 +5,25 @@ const scissors = document.getElementById("scissors");
 const MovesDisplayed = document.getElementById("MovesDisplayed");
 const resultsDisplayed = document.getElementById("resultsDisplayed");
 const reset = document.getElementById("reset");
-let defaultMatchResult = {
-  cpuMove: "",
-  playerMove: "",
-  cpuWins: 0,
-  playerWins: 0,
-  ties: 0,
-  result: "",
-};
+// let matchResult = {};
 
-testDisplay();
-
-// console.log(typeof JSON.parse(localStorage.getItem("results")));
+display();
 
 rock.addEventListener("click", function () {
   matchResult.playerMove = "Rock";
-  playGame(matchResult.playerMove);
+  playGame("rock");
 });
 paper.addEventListener("click", function () {
   matchResult.playerMove = "Paper";
-  playGame(matchResult.playerMove);
+  playGame("paper");
 });
 scissors.addEventListener("click", function () {
   matchResult.playerMove = "Scissors";
-  playGame(matchResult.playerMove);
+  playGame("scissors");
 });
 reset.addEventListener("click", function () {
   localStorage.removeItem("results");
-  testDisplay();
+  display();
 });
 
 // Randomizing computer choice
@@ -49,7 +40,6 @@ function computerChoice() {
 // main function for playing the game
 function playGame(playerMove) {
   const cpuMove = computerChoice();
-  // matchResult =
   playerMove === cpuMove
     ? (matchResult.ties++, (matchResult.result = "tie"))
     : playerMove === "Rock"
@@ -63,17 +53,22 @@ function playGame(playerMove) {
     : cpuMove === "Paper"
     ? (matchResult.playerWins++, (matchResult.result = "player won"))
     : (matchResult.cpuWins++, (matchResult.result = "computer won"));
+
+  //Storing in local storage
   localStorage.setItem("results", JSON.stringify(matchResult));
+
   display();
 }
-
-// Display results
-function testDisplay() {
-  JSON.parse(localStorage.getItem("results")) === null
-    ? ((matchResult = defaultMatchResult), display())
-    : ((matchResult = JSON.parse(localStorage.getItem("results"))), display());
-}
+// Display function
 function display() {
-  MovesDisplayed.innerText = `Moves : Computer choose ${matchResult.cpuMove} while player choose ${matchResult.playerMove}`;
-  resultsDisplayed.innerText = `Results : ${matchResult.result} , player total wins are [ ${matchResult.playerWins} ] while computer total wins are [ ${matchResult.cpuWins} ].`;
+  matchResult = JSON.parse(localStorage.getItem("results")) || {
+    cpuMove: "",
+    playerMove: "",
+    cpuWins: 0,
+    playerWins: 0,
+    ties: 0,
+    result: "",
+  };
+  MovesDisplayed.innerText = `Moves : Computer choose [ ${matchResult.cpuMove} ] while player choose [ ${matchResult.playerMove} ]`;
+  resultsDisplayed.innerText = `Results : [ ${matchResult.result} ] , player total wins are [ ${matchResult.playerWins} ] while computer total wins are [ ${matchResult.cpuWins} ].`;
 }
